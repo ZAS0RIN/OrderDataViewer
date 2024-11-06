@@ -33,8 +33,11 @@ docker compose up -d
 
 http://localhost:3000 - Графический интерфейс предоставления информации
 
+![img.png](images/front_demo.png)
+
 http://localhost:8000/docs - Swagger описание реализованного api, возможность использовать api из вкладки бразуера  
 
+![img_1.png](images/swagger_demo.png)
 
 ## Структура проекта
 
