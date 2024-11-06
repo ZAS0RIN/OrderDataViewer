@@ -21,7 +21,10 @@ class ApiOrderRepository(OrderRepository):
                 url += '/'
             url += f'order/{order_id}'
 
-            response = await client.get(url, auth=auth)
+            try:
+                response = await client.get(url, auth=auth)
+            except httpx.ConnectError:
+                raise DataReceiverException('Внешний источник данных недоступен')
 
             if response.status_code == 200:
                 data = response.json()
@@ -46,10 +49,12 @@ class ApiOrderRepository(OrderRepository):
                     components=components,
                     product=product
                 )
-            else:
-                raise DataReceiverException(
-                    status_code=response.status_code
-                )
+
+            if response.status_code == 404:
+                raise DataReceiverException('Заказ не найден')
+            elif response.status_code == 401:
+                raise DataReceiverException('Не верный логин/пароль при обращении к внешнему источнику данных')
+            raise DataReceiverException('Ошибка при получении данных о заказе')
 
     async def get_order_by_name(self, order_name) -> Order:
         pass

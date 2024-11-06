@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 
 from infrastructure.order_repository import ApiOrderRepository
-from domain.models import Order
+from routers.responses import GetOrderResponse
 from use_cases.get_order_data import GetOrderDataUseCase
 
 router = APIRouter()
@@ -12,14 +12,17 @@ def get_order_use_case():
     return GetOrderDataUseCase(order_repository=repository)
 
 
-@router.get("/order/{order_id}", response_model=Order)
+@router.get("/order/{order_id}", responses=GetOrderResponse)
 async def get_order(
         order_id: str,
         use_case: GetOrderDataUseCase = Depends(get_order_use_case)
 ):
-    order = await use_case.execute(order_id)
+    try:
+        order = await use_case.execute(order_id)
+    except Exception as error:
+        raise HTTPException(
+            status_code=500,
+            detail=str(error)
+        )
 
-    if order:
-        return order
-    else:
-        raise HTTPException(status_code=404, detail="Order not found")
+    return order
