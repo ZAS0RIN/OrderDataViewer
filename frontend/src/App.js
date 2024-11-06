@@ -26,6 +26,7 @@ function App() {
 
   return (
     <div>
+      <h2 className={'appTitle'}> Прософт-системы</h2>
       <OrderInput onFetchOrder={fetchOrderData} />
       <OrderDetails order={orderData} />
       <Error message={error} onClose={closeError} />
