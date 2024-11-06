@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 
 
 @dataclass
@@ -21,4 +21,4 @@ class Product:
 class Order:
     order_id: str
     components: List[Component]
-    product: Product
+    product: Optional[Product]

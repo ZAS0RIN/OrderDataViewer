@@ -29,15 +29,18 @@ class ApiOrderRepository(OrderRepository):
                     Component(
                         article=code,
                         name=name
-                    ) for code, name in data["components"].items()
+                    ) for code, name in data.get("components", {}).items()
                 ]
-                product = Product(
-                    name=data["products"]["product"],
-                    count=data["products"]["count"],
-                    version=data["products"]["version"],
-                    firmware=data["products"]["firmware"],
-                    batch=list(data["products"]["batch"].values())
-                )
+
+                product = None
+                if data["products"]:
+                    product = Product(
+                        name=data["products"]["product"],
+                        count=data["products"]["count"],
+                        version=data["products"]["version"],
+                        firmware=data["products"]["firmware"],
+                        batch=list(data["products"]["batch"].values())
+                    )
                 return Order(
                     order_id=data["order"],
                     components=components,
