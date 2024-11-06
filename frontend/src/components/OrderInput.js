@@ -32,7 +32,7 @@ const OrderInput = ({ onFetchOrder }) => {
 
             </Form.Group>
             <Row className={'requestButtonContainer'}>
-              <Button type="submit" fluid>
+              <Button type="submit">
                 Запрос данных о заказе
               </Button>
             </Row>
