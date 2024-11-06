@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, ListGroup, Container, Row, Col } from 'react-bootstrap';
+import { Card, Container, Row, Col } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 
 const OrderDetails = ({ order }) => {
