@@ -1,0 +1,16 @@
+[flake8]
+per-file-ignores =
+    __init__.py: F401, F403
+
+ignore =
+    E731
+    E401
+    W503
+
+exclude=
+    venv/
+    env/
+    frontend
+
+max-line-length=
+    119

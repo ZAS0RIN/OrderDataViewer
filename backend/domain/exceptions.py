@@ -1,0 +1,2 @@
+class DataReceiverException(Exception):
+    pass
